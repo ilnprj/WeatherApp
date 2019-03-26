@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btnOpenSettings = findViewById(R.id.buttonSettings);
         btnOpenSettings.setOnClickListener(this);
-
-        Button btnOpenMap = findViewById(R.id.buttonStart);
-        btnOpenMap.setOnClickListener(this);
     }
 
     //Один метод для всех кнопок. Внутри метода идет проверка по ID кнопки. Вызываем необходимые активити.
@@ -28,12 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId())
         {
-            case R.id.buttonStart:
-            {
-                intent = new Intent(this, MapsActivity.class);
-                break;
-            }
-
             case R.id.buttonSettings:
             {
                 intent = new Intent(this, Settings.class);
