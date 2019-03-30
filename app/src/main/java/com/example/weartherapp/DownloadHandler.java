@@ -8,7 +8,6 @@ import java.net.URL;
 import android.util.Log;
 
 import android.content.Context;
-import android.widget.Toast;
 
 public class DownloadHandler {
 
@@ -33,6 +32,7 @@ public class DownloadHandler {
             reader.close();
             JSONObject data = new JSONObject(json.toString());
 
+            Log.d("LocConnection",data.get("cod").toString());
             if (data.getInt("cod")!=200)
             {
                 return null;
@@ -44,7 +44,7 @@ public class DownloadHandler {
         {
             //Нужна информация о том что произошло
             e.getMessage();
-            Log.d("PIZDEC",e.getMessage());
+            Log.d("LocConnection",e.getMessage());
             return null;
         }
     }

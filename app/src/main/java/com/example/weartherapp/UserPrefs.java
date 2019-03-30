@@ -10,9 +10,9 @@ public class UserPrefs {
         userData = activity.getPreferences(Activity.MODE_PRIVATE);
     }
 
-    String GetDefaultCity()
+    public String GetDefaultCity()
     {
-        return userData.getString("city", "Berlin, DE");
+        return userData.getString("city", "Novosibirsk");
     }
 
     void SetCity(String city)

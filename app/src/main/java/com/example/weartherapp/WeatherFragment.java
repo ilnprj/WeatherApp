@@ -1,6 +1,5 @@
 package com.example.weartherapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -42,6 +41,7 @@ public class WeatherFragment  extends Fragment  {
     }
 
     private void updateWeatherData(final String city){
+        Log.d("LocConnection",city);
         new Thread(){
             public void run(){
                 final JSONObject json = DownloadHandler.getJSON(getActivity(), city);
