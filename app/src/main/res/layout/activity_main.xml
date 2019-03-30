@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.387" />
 
     <Button
-        android:id="@+id/buttonStart"
+        android:id="@+id/buttonShowWeather"
         android:layout_width="149dp"
         android:layout_height="78dp"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="160dp"
         android:background="@drawable/button"
-        android:text="Show Weather"
+        android:text="@string/ShowWeather"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="160dp"
         android:background="@drawable/button"
-        android:text="Настройки"
+        android:text="@string/settings"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
