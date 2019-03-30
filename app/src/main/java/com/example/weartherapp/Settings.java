@@ -6,12 +6,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.content.SharedPreferences;
 import android.widget.TextView;
-import android.util.Log;
+
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
-    SharedPreferences userPrefs;
     TextView text;
     Button backBtn;
     @Override
@@ -22,7 +20,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_settings);
         //Инициализация содержимого в интерфейсе
         setButtons();
-        initPrefs();
         setTextViews();
     }
 
@@ -35,8 +32,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private void setTextViews()
     {
         text = findViewById(R.id.editText2);
-        text.setText(getDefaultCity());
-        text.addTextChangedListener(new TextWatcher() {
+        text.setText(new UserPrefs(this).GetDefaultCity());
+        text.addTextChangedListener(new TextWatcher()
+        {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -49,16 +47,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-                setCity(text.getText().toString());
+                UpdateCity(text.getText().toString());
             }
         });
     }
-
-    private void initPrefs()
-    {
-        userPrefs = getApplicationContext().getSharedPreferences("MyPrefs",MODE_PRIVATE);
-    }
-
 
     @Override
     public void onClick(View v)
@@ -66,15 +58,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         onBackPressed();
     }
 
-    String getDefaultCity()
+    private void UpdateCity(String inputCity)
     {
-        return this.userPrefs.getString("city", "Berlin, DE");
+        new UserPrefs(this).SetCity(inputCity);
     }
-
-    private void setCity(String city)
-    {
-        this.userPrefs.edit().putString("city",city).commit();
-    }
-
-
 }
