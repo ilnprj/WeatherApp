@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">WeartherApp</string>
     <string name="change_city">Change city</string>
-    <string name="open_weather_maps_app_id">11111</string>
+    <string name="open_weather_maps_app_id">bd5e378503939ddaee76f12ad7a97608</string>
     <string name="place_not_found">Sorry, no weather data found.</string>
     <string name="settings">Settings</string>
     <string name="Back">Back</string>
     <string name="Sounds">Sounds</string>
-
+    <string name="ChangeCity">Change your city</string>
+    <string name="Temperature">Temperature</string>
+    <string name="City">City</string>
+    <string name="LastUpdated">Last Updated</string>
+    <string name="Descrtiption">Advanced Info</string>
+    <string name="ShowWeather">Show Weather</string>
 </resources>
