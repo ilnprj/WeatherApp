@@ -5,9 +5,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import android.util.Log;
 
 import android.content.Context;
+import android.widget.Toast;
 
 public class DownloadHandler {
 
@@ -43,6 +44,7 @@ public class DownloadHandler {
         {
             //Нужна информация о том что произошло
             e.getMessage();
+            Log.d("PIZDEC",e.getMessage());
             return null;
         }
     }
