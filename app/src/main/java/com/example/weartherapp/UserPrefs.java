@@ -7,7 +7,8 @@ public class UserPrefs {
     SharedPreferences userData;
 
     public UserPrefs(Activity activity){
-        userData = activity.getPreferences(Activity.MODE_PRIVATE);
+        //Если делать обычный getPrefrences, то информация не передается между разными вызовами Activity
+        userData = activity.getSharedPreferences("city",0);
     }
 
     public String GetDefaultCity()

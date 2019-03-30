@@ -41,7 +41,7 @@ public class WeatherFragment  extends Fragment  {
     }
 
     private void updateWeatherData(final String city){
-        Log.d("LocConnection",city);
+
         new Thread(){
             public void run(){
                 final JSONObject json = DownloadHandler.getJSON(getActivity(), city);
