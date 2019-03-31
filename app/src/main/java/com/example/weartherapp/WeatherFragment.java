@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ public class WeatherFragment  extends Fragment  {
 
     TextView cityField;
     TextView temperatureField;
+    TextView lastUpdated;
+    TextView description ;
+    TextView windText;
     Handler handler;
 
     public WeatherFragment()
@@ -32,6 +36,9 @@ public class WeatherFragment  extends Fragment  {
         View rootView = inflater.inflate(R.layout.activity_weather, container, false);
         cityField = rootView.findViewById(R.id.cityText);
         temperatureField = rootView.findViewById(R.id.tempText);
+        lastUpdated = rootView.findViewById(R.id.infoText);
+        description  = rootView.findViewById(R.id.description );
+        windText = rootView.findViewById(R.id.windText);
         return rootView;
     }
 
@@ -70,16 +77,23 @@ public class WeatherFragment  extends Fragment  {
                     ", " +
                     json.getJSONObject("sys").getString("country"));
 
-
             JSONObject main = json.getJSONObject("main");
-
+            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             temperatureField.setText(
                     String.format("%.2f", main.getDouble("temp"))+ " ℃");
 
-            //DateFormat df = DateFormat.getDateTimeInstance();
-            //String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-            //updatedField.setText("Last update: " + updatedOn);
+            DateFormat df = DateFormat.getDateTimeInstance();
+            String updatedOn = df.format(new Date(json.getLong("dt")*1000));
 
+            lastUpdated.setText("Last update: " + updatedOn);
+
+            description.setText(
+                    details.getString("description").toUpperCase()
+            );
+
+            windText.setText(
+                    "Wind Speed = "+json.getJSONObject("wind").getString("speed")+"m/s"
+            );
         }catch(Exception e){
             Log.e("SimpleWeather", "One or more fields not found in the JSON data");
         }

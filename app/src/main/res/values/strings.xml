@@ -9,7 +9,7 @@
     <string name="ChangeCity">Change your city</string>
     <string name="Temperature">Temperature</string>
     <string name="City">City</string>
-    <string name="LastUpdated">Last Updated</string>
     <string name="Descrtiption">Advanced Info</string>
     <string name="ShowWeather">Show Weather</string>
+    <string name="LastInfo">Last Updated</string>
 </resources>
