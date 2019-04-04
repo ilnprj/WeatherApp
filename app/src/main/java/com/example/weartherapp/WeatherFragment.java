@@ -1,7 +1,6 @@
 package com.example.weartherapp;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -26,8 +25,7 @@ public class WeatherFragment  extends Fragment  {
     TextView lastUpdated;
     TextView description ;
     TextView windText;
-    TextView iconWeather;
-    ImageView refreshImage;
+    ImageView iconWeather;
     Handler handler;
 
     public WeatherFragment()
@@ -43,13 +41,8 @@ public class WeatherFragment  extends Fragment  {
         lastUpdated = rootView.findViewById(R.id.infoText);
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
-        iconWeather = rootView.findViewById(R.id.weather_icon);
-        iconWeather.setTypeface(weatherFont);
-        refreshImage = rootView.findViewById(R.id.refreshIcon);
-        refreshImage.setImageResource(R.drawable.refresh);
-        refreshImage.getLayoutParams().width = 100;
-        refreshImage.requestLayout();
-        refreshImage.invalidate();
+        iconWeather = rootView.findViewById(R.id.iconWeather);
+
         return rootView;
     }
 
@@ -118,35 +111,36 @@ public class WeatherFragment  extends Fragment  {
     private void setWeatherIcon(int actualId, long sunrise, long sunset)
     {
         int id = actualId / 100;
-        String icon = "";
 
         if (actualId ==  800)
         {
             long currentTime = new Date().getTime();
             if(currentTime>=sunrise && currentTime<sunset) {
-                icon = getActivity().getString(R.string.weather_sunny);
+                iconWeather.setImageResource(R.drawable.sun);
             } else {
-                icon = getActivity().getString(R.string.weather_clear_night);
+                iconWeather.setImageResource(R.drawable.night);
             }
         }
         else
         {
             switch (id)
             {
-                case 2 : icon = getActivity().getString(R.string.weather_thunder);
+                case 2 : iconWeather.setImageResource(R.drawable.thunder);
                     break;
-                case 3 : icon = getActivity().getString(R.string.weather_drizzle);
+                case 3 : iconWeather.setImageResource(R.drawable.rain);
                     break;
-                case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                //case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                //    break;
+                case 8 : iconWeather.setImageResource(R.drawable.cloudy);
                     break;
-                case 8 : icon = getActivity().getString(R.string.weather_cloudy);
+                case 6 : iconWeather.setImageResource(R.drawable.snow);
                     break;
-                case 6 : icon = getActivity().getString(R.string.weather_snowy);
-                    break;
-                case 5 : icon = getActivity().getString(R.string.weather_rainy);
+                case 5 : iconWeather.setImageResource(R.drawable.rain);
                     break;
             }
         }
-        iconWeather.setText(icon);
+       // iconWeather.getLayoutParams().width = 100;
+       // iconWeather.requestLayout();
+       // iconWeather.invalidate();
     }
 }
