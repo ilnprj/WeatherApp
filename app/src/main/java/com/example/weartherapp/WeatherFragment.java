@@ -63,6 +63,7 @@ public class WeatherFragment  extends Fragment  {
                             Toast.makeText(getActivity(),
                                     getActivity().getString(R.string.place_not_found),
                                     Toast.LENGTH_LONG).show();
+                            iconWeather.setImageResource(R.drawable.sad);
                         }
                     });
                 } else {
@@ -105,6 +106,7 @@ public class WeatherFragment  extends Fragment  {
                     json.getJSONObject("sys").getLong("sunset") * 1000);
         }catch(Exception e){
             Log.e("SimpleWeather", "One or more fields not found in the JSON data");
+            iconWeather.setImageResource(R.drawable.sad);
         }
     }
 
