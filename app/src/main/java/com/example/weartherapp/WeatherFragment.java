@@ -1,6 +1,7 @@
 package com.example.weartherapp;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ public class WeatherFragment  extends Fragment  {
     TextView description ;
     TextView windText;
     TextView iconWeather;
+    ImageView refreshImage;
     Handler handler;
 
     public WeatherFragment()
@@ -40,8 +43,13 @@ public class WeatherFragment  extends Fragment  {
         lastUpdated = rootView.findViewById(R.id.infoText);
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
-        iconWeather = (TextView)rootView.findViewById(R.id.weather_icon);
+        iconWeather = rootView.findViewById(R.id.weather_icon);
         iconWeather.setTypeface(weatherFont);
+        refreshImage = rootView.findViewById(R.id.refreshIcon);
+        refreshImage.setImageResource(R.drawable.refresh);
+        refreshImage.getLayoutParams().width = 100;
+        refreshImage.requestLayout();
+        refreshImage.invalidate();
         return rootView;
     }
 
