@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +25,7 @@ public class WeatherFragment  extends Fragment  {
     TextView lastUpdated;
     TextView description ;
     TextView windText;
-    TextView iconWeather;
+    ImageView iconWeather;
     Handler handler;
 
     public WeatherFragment()
@@ -41,8 +41,8 @@ public class WeatherFragment  extends Fragment  {
         lastUpdated = rootView.findViewById(R.id.infoText);
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
-        iconWeather = (TextView)rootView.findViewById(R.id.weather_icon);
-        iconWeather.setTypeface(weatherFont);
+        iconWeather = rootView.findViewById(R.id.iconWeather);
+
         return rootView;
     }
 
@@ -63,6 +63,7 @@ public class WeatherFragment  extends Fragment  {
                             Toast.makeText(getActivity(),
                                     getActivity().getString(R.string.place_not_found),
                                     Toast.LENGTH_LONG).show();
+                            iconWeather.setImageResource(R.drawable.sad);
                         }
                     });
                 } else {
@@ -105,41 +106,43 @@ public class WeatherFragment  extends Fragment  {
                     json.getJSONObject("sys").getLong("sunset") * 1000);
         }catch(Exception e){
             Log.e("SimpleWeather", "One or more fields not found in the JSON data");
+            iconWeather.setImageResource(R.drawable.sad);
         }
     }
 
     private void setWeatherIcon(int actualId, long sunrise, long sunset)
     {
         int id = actualId / 100;
-        String icon = "";
 
         if (actualId ==  800)
         {
             long currentTime = new Date().getTime();
             if(currentTime>=sunrise && currentTime<sunset) {
-                icon = getActivity().getString(R.string.weather_sunny);
+                iconWeather.setImageResource(R.drawable.sun);
             } else {
-                icon = getActivity().getString(R.string.weather_clear_night);
+                iconWeather.setImageResource(R.drawable.night);
             }
         }
         else
         {
             switch (id)
             {
-                case 2 : icon = getActivity().getString(R.string.weather_thunder);
+                case 2 : iconWeather.setImageResource(R.drawable.thunder);
                     break;
-                case 3 : icon = getActivity().getString(R.string.weather_drizzle);
+                case 3 : iconWeather.setImageResource(R.drawable.rain);
                     break;
-                case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                //case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                //    break;
+                case 8 : iconWeather.setImageResource(R.drawable.cloudy);
                     break;
-                case 8 : icon = getActivity().getString(R.string.weather_cloudy);
+                case 6 : iconWeather.setImageResource(R.drawable.snow);
                     break;
-                case 6 : icon = getActivity().getString(R.string.weather_snowy);
-                    break;
-                case 5 : icon = getActivity().getString(R.string.weather_rainy);
+                case 5 : iconWeather.setImageResource(R.drawable.rain);
                     break;
             }
         }
-        iconWeather.setText(icon);
+       // iconWeather.getLayoutParams().width = 100;
+       // iconWeather.requestLayout();
+       // iconWeather.invalidate();
     }
 }

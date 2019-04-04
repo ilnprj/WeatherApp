@@ -34,7 +34,7 @@
         android:layout_marginTop="148dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:gravity="center"
+        android:gravity="bottom|center"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,22 +111,21 @@
         app:layout_constraintVertical_bias="0.956"
         tools:text="@string/Back" />
 
-    <TextView
-        android:id="@+id/weather_icon"
-        android:layout_width="378dp"
-        android:layout_height="117dp"
+    <ImageView
+        android:id="@+id/iconWeather"
+        android:layout_width="381dp"
+        android:layout_height="133dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:textSize="100sp"
-        android:textStyle="bold"
-        android:typeface="normal"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/weather_foggy"
+        app:layout_constraintBottom_toBottomOf="@+id/tempText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
