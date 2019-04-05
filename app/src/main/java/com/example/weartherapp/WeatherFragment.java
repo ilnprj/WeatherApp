@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -42,7 +43,13 @@ public class WeatherFragment  extends Fragment  {
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
         iconWeather = rootView.findViewById(R.id.iconWeather);
-
+        iconWeather.setOnTouchListener(new OnSwipeListener(getActivity())
+        {
+            public void onSwipeBottom() {
+                Toast.makeText(getContext(), "bottom", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
         return rootView;
     }
 
@@ -131,8 +138,6 @@ public class WeatherFragment  extends Fragment  {
                     break;
                 case 3 : iconWeather.setImageResource(R.drawable.rain);
                     break;
-                //case 7 : icon = getActivity().getString(R.string.weather_foggy);
-                //    break;
                 case 8 : iconWeather.setImageResource(R.drawable.cloudy);
                     break;
                 case 6 : iconWeather.setImageResource(R.drawable.snow);
@@ -141,8 +146,7 @@ public class WeatherFragment  extends Fragment  {
                     break;
             }
         }
-       // iconWeather.getLayoutParams().width = 100;
-       // iconWeather.requestLayout();
-       // iconWeather.invalidate();
     }
+
+
 }
