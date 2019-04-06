@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class WeatherFragment  extends Fragment  {
     TextView description ;
     TextView windText;
     ImageView iconWeather;
+    ListView swipeWeather;
     Handler handler;
 
     public WeatherFragment()
@@ -43,10 +45,12 @@ public class WeatherFragment  extends Fragment  {
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
         iconWeather = rootView.findViewById(R.id.iconWeather);
-        iconWeather.setOnTouchListener(new OnSwipeListener(getActivity())
+        swipeWeather = rootView.findViewById(R.id.swipeView);
+        swipeWeather.setOnTouchListener(new OnSwipeListener(getActivity())
         {
             public void onSwipeBottom() {
-                Toast.makeText(getContext(), "bottom", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.tryConnect, Toast.LENGTH_SHORT).show();
+                updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
             }
         }
         );
