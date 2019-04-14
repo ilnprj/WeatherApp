@@ -47,18 +47,12 @@ public class WeatherFragment  extends Fragment  {
         iconWeather = rootView.findViewById(R.id.iconWeather);
         swipeWeather = rootView.findViewById(R.id.swipeView);
         swipeWeather.setOnTouchListener(new OnSwipeListener(getActivity())
-        {
-            public void onSwipeBottom() {
-                Toast.makeText(getContext(), R.string.tryConnect, Toast.LENGTH_SHORT).show();
-                updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
-            }
-
-            public void onSwipeRight()
-            {
-                Intent i =  new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-            }
-        }
+                                        {
+                                            public void onSwipeBottom() {
+                                                Toast.makeText(getContext(), R.string.tryConnect, Toast.LENGTH_SHORT).show();
+                                                updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
+                                            }
+                                        }
         );
         return rootView;
     }
@@ -118,6 +112,7 @@ public class WeatherFragment  extends Fragment  {
                     "Wind Speed = "+json.getJSONObject("wind").getString("speed")+"m/s"
             );
 
+            Log.e("SimpleWeather",  json.getJSONObject("coord").getString("lon")+" "+json.getJSONObject("coord").getString("lat"));
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);
