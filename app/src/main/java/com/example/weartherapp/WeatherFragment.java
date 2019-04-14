@@ -1,5 +1,6 @@
 package com.example.weartherapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class WeatherFragment  extends Fragment  {
     TextView description ;
     TextView windText;
     ImageView iconWeather;
+    ListView swipeWeather;
     Handler handler;
 
     public WeatherFragment()
@@ -42,7 +45,15 @@ public class WeatherFragment  extends Fragment  {
         description  = rootView.findViewById(R.id.description );
         windText = rootView.findViewById(R.id.windText);
         iconWeather = rootView.findViewById(R.id.iconWeather);
-
+        swipeWeather = rootView.findViewById(R.id.swipeView);
+        swipeWeather.setOnTouchListener(new OnSwipeListener(getActivity())
+                                        {
+                                            public void onSwipeBottom() {
+                                                Toast.makeText(getContext(), R.string.tryConnect, Toast.LENGTH_SHORT).show();
+                                                updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
+                                            }
+                                        }
+        );
         return rootView;
     }
 
@@ -101,6 +112,7 @@ public class WeatherFragment  extends Fragment  {
                     "Wind Speed = "+json.getJSONObject("wind").getString("speed")+"m/s"
             );
 
+            Log.e("SimpleWeather",  json.getJSONObject("coord").getString("lon")+" "+json.getJSONObject("coord").getString("lat"));
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);
@@ -131,8 +143,6 @@ public class WeatherFragment  extends Fragment  {
                     break;
                 case 3 : iconWeather.setImageResource(R.drawable.rain);
                     break;
-                //case 7 : icon = getActivity().getString(R.string.weather_foggy);
-                //    break;
                 case 8 : iconWeather.setImageResource(R.drawable.cloudy);
                     break;
                 case 6 : iconWeather.setImageResource(R.drawable.snow);
@@ -141,8 +151,7 @@ public class WeatherFragment  extends Fragment  {
                     break;
             }
         }
-       // iconWeather.getLayoutParams().width = 100;
-       // iconWeather.requestLayout();
-       // iconWeather.invalidate();
     }
+
+
 }

@@ -1,5 +1,4 @@
 package com.example.weartherapp;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +14,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btnOpenSettings = findViewById(R.id.buttonSettings);
         Button btnShowWeather = findViewById(R.id.buttonShowWeather);
+        View mainScreen = findViewById(R.id.viewMain);
+
         btnShowWeather.setOnClickListener(this);
         btnOpenSettings.setOnClickListener(this);
+        mainScreen.setOnTouchListener(new OnSwipeListener(MainActivity.this)
+        {
+            @Override
+            public void onSwipeLeft() {
+                Intent i =  new Intent(MainActivity.this, Settings.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                Intent i = new Intent(MainActivity.this, Weather.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     //Один метод для всех кнопок. Внутри метода идет проверка по ID кнопки. Вызываем необходимые активити.
