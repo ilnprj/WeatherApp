@@ -12,6 +12,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
     TextView text;
     Button backBtn;
+    Button gpsTestBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Задействуем первоначальную реализацию родителя
@@ -27,6 +28,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     {
         backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
+        gpsTestBtn = findViewById(R.id.gpsButton);
+        gpsTestBtn.setOnClickListener(this);
     }
 
     private void setTextViews()
@@ -55,7 +58,19 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v)
     {
-        onBackPressed();
+        switch (v.getId())
+        {
+            case R.id.backBtn: {
+                onBackPressed();
+                break;
+            }
+
+            case R.id.gpsButton: {
+                View.OnClickListener example = GpsModule.example;
+                example.onClick(v);
+                break;
+            }
+        }
     }
 
     private void UpdateCity(String inputCity)
