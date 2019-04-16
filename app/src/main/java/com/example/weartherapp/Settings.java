@@ -66,8 +66,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
 
             case R.id.gpsButton: {
-                View.OnClickListener example = GpsModule.example;
-                example.onClick(v);
+                //Создали объект указанного типа, вызвали конструктор
+                GpsModule gpsItem= new GpsModule();
+                //из созданного класса заинтили нужный тип объекта
+                View.OnClickListener onClickGeoCoder = gpsItem.example;
+                onClickGeoCoder.onClick(v);
+                text.setText(gpsItem.GetTest());
                 break;
             }
         }
