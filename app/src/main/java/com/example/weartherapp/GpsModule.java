@@ -15,7 +15,6 @@ import java.util.Locale;
 public class GpsModule extends AppCompatActivity   {
 
     private String exampleText;
-    //private LocationManager locationManager;
 
     //Пример простого конструктора
     public GpsModule() {
@@ -25,7 +24,7 @@ public class GpsModule extends AppCompatActivity   {
     public View.OnClickListener example = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
             GetGeoCoderData(v);
         }
     };
