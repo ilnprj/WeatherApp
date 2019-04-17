@@ -15,10 +15,12 @@ import java.util.Locale;
 public class GpsModule extends AppCompatActivity   {
 
     private String exampleText;
+    LocationManager locationManager;
 
     //Пример простого конструктора
-    public GpsModule() {
+    public GpsModule(LocationManager loc) {
         exampleText = "Constructor Inited";
+        locationManager = loc;
     }
 
     public View.OnClickListener example = new View.OnClickListener() {
@@ -44,6 +46,16 @@ public class GpsModule extends AppCompatActivity   {
 
         if (addresses.size() > 0)
             Log.d("LocConnection",(addresses.get(0).getLocality())+" N = "+addresses.size());
+    }
+
+    public void UpdateGps()
+    {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                1000 * 10, 10, locationListener);
+        locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 1000 * 10, 10,
+                locationListener);
+
     }
 
     public String GetTest()
