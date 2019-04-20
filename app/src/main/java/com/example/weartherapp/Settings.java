@@ -1,9 +1,6 @@
 package com.example.weartherapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,9 +14,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     TextView text;
     Button backBtn;
     Button gpsTestBtn;
-    GpsModule gpsItem;
-    View.OnClickListener onClickGeoCoder;
-    LocationManager managerLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Задействуем первоначальную реализацию родителя
@@ -29,16 +23,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         //Инициализация содержимого в интерфейсе
         setButtons();
         setTextViews();
-
-        managerLocation = (LocationManager)getSystemService(LOCATION_SERVICE);
-        gpsItem = new GpsModule(managerLocation);
-        onClickGeoCoder = gpsItem.example;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        gpsItem.
     }
 
     private void setButtons()
@@ -83,8 +67,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
 
             case R.id.gpsButton: {
-                onClickGeoCoder.onClick(v);
-                text.setText(gpsItem.GetTest());
+                Intent item = new Intent(this,GpsModule.class);
+                startActivity(item);
                 break;
             }
         }
