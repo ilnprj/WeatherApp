@@ -67,7 +67,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
 
             case R.id.gpsButton: {
-                Intent item = new Intent(this,GpsModule.class);
+                Intent item = new Intent(this,gpsClass.class);
                 startActivity(item);
                 break;
             }
