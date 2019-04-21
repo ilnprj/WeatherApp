@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationListener;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.location.Location;
@@ -22,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class gpsClass extends AppCompatActivity {
-
+    final int REQUEST_CODE_PERMISSION = 0;
     TextView tvEnabledGPS;
     TextView tvStatusGPS;
     TextView tvLocationGPS;
@@ -45,13 +47,36 @@ public class gpsClass extends AppCompatActivity {
         tvStatusNet = findViewById(R.id.tvStatusNet);
         tvLocationNet = findViewById(R.id.tvLocationNet);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                } else {
+                    // permission denied
+                }
+                return;
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // ActivityCompat.requestPermissions(this,);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast toast = Toast.makeText(this, "Permission failed", Toast.LENGTH_SHORT);
