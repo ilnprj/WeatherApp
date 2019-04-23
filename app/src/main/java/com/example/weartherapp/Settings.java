@@ -1,6 +1,10 @@
 package com.example.weartherapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
+    final int REQUEST_CODE_PERMISSION = 0;
     TextView text;
     Button backBtn;
     Button gpsTestBtn;
@@ -67,6 +72,14 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
 
             case R.id.gpsButton: {
+
+                int permissionStatusGps = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+                int permissionsStatusInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                if ((permissionStatusGps != PackageManager.PERMISSION_GRANTED) || (permissionsStatusInternet !=  PackageManager.PERMISSION_GRANTED)) {
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                            REQUEST_CODE_PERMISSION);
+                    return;
+                }
                 Intent item = new Intent(this,gpsClass.class);
                 startActivity(item);
                 break;

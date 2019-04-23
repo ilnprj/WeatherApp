@@ -1,6 +1,7 @@
 package com.example.weartherapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class gpsClass extends AppCompatActivity {
-    final int REQUEST_CODE_PERMISSION = 0;
+
     TextView tvEnabledGPS;
     TextView tvStatusGPS;
     TextView tvLocationGPS;
@@ -48,32 +49,8 @@ public class gpsClass extends AppCompatActivity {
         tvLocationNet = findViewById(R.id.tvLocationNet);
 
 
-
-        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_CODE_PERMISSION);
-        }
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_PERMISSION:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission granted
-                    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                } else {
-                    // permission denied
-                }
-                return;
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -109,6 +86,7 @@ public class gpsClass extends AppCompatActivity {
             checkEnabled();
         }
 
+        @SuppressLint("MissingPermission")
         @Override
         public void onProviderEnabled(String provider) {
             showLocation(locationManager.getLastKnownLocation(provider));
