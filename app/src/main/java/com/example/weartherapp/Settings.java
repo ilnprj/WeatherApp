@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_settings);
         //Инициализация содержимого в интерфейсе
         setButtons();
+        setTextViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setTextViews();
     }
 
@@ -56,7 +63,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-                UpdateCity(text.getText().toString());
+                updateCity(text.getText().toString());
             }
         });
     }
@@ -75,19 +82,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
                 int permissionStatusGps = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
                 int permissionsStatusInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                boolean check = permissionsStatusInternet ==  PackageManager.PERMISSION_GRANTED;
+                Log.d("LocConnection","Check = "+check);
                 if ((permissionStatusGps != PackageManager.PERMISSION_GRANTED) || (permissionsStatusInternet !=  PackageManager.PERMISSION_GRANTED)) {
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE},
                             REQUEST_CODE_PERMISSION);
                     return;
                 }
                 Intent item = new Intent(this,gpsClass.class);
                 startActivity(item);
+
                 break;
             }
         }
     }
 
-    private void UpdateCity(String inputCity)
+    private void updateCity(String inputCity)
     {
         new UserPrefs(this).SetCity(inputCity);
     }

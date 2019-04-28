@@ -2,6 +2,7 @@ package com.example.weartherapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,9 +33,10 @@ public class gpsClass extends AppCompatActivity implements View.OnClickListener 
     TextView tvLocationNet;
     TextView getGeoInfo;
     Button buttonGeo;
+    Button settings;
     private double latGeo = 0;
     private double longGeo = 0;
-    private LocationManager locationManager;
+    LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +49,16 @@ public class gpsClass extends AppCompatActivity implements View.OnClickListener 
     protected void onResume() {
         super.onResume();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast toast = Toast.makeText(this, "Permission failed", Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                1000 * 10, 10, locationListener);
+                0, 10, locationListener);
         locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 1000 * 10, 10,
+                LocationManager.NETWORK_PROVIDER, 0, 10,
                 locationListener);
         checkEnabled();
     }
@@ -140,8 +142,10 @@ public class gpsClass extends AppCompatActivity implements View.OnClickListener 
             e.printStackTrace();
         }
 
-        if (addresses.size() > 0)
-            getGeoInfo.setText((addresses.get(0).getLocality()) + " N = " + addresses.size());
+        if (addresses.size() > 0) {
+            getGeoInfo.setText((addresses.get(0).getLocality()));
+            updateCity(getGeoInfo.getText().toString());
+        }
         else
             getGeoInfo.setText("Информация не найдена.");
     }
@@ -156,6 +160,8 @@ public class gpsClass extends AppCompatActivity implements View.OnClickListener 
         tvLocationNet = findViewById(R.id.tvLocationNet);
         getGeoInfo = findViewById(R.id.getGeoCoderInfo);
         buttonGeo = findViewById(R.id.callGeoCoder);
+        settings = findViewById(R.id.checkSettings);
+        settings.setOnClickListener(this);
         buttonGeo.setOnClickListener(this);
     }
 
@@ -166,5 +172,15 @@ public class gpsClass extends AppCompatActivity implements View.OnClickListener 
         {
             GetGeoCoderData(v);
         }
+
+        if (v.getId() == R.id.checkSettings)
+        {
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
+    }
+
+    private void updateCity(String inputCity)
+    {
+        new UserPrefs(this).SetCity(inputCity);
     }
 }
