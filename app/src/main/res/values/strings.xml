@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">WeartherApp</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="change_city">Change city</string>
+    <string name="open_weather_maps_app_id">5fd6c6ea90499acb56afe9ea7794b451</string>
+    <string name="place_not_found">Sorry, no weather data found.</string>
+    <string name="settings">Settings</string>
+    <string name="Back">Back</string>
+    <string name="Sounds">Sounds</string>
+    <string name="ChangeCity">Change your city</string>
+    <string name="Temperature">Temperature</string>
+    <string name="City">City</string>
+    <string name="Descrtiption">Advanced Info</string>
+    <string name="ShowWeather">Show Weather</string>
+    <string name="LastInfoServer">Time from server</string>
+    <string name="LastTimeUser">Time update user</string>
+    <string name="tryConnect">Updating weather..</string>
+    <string name="gpsText">Set with GPS</string>
 </resources>
