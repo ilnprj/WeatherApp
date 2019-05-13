@@ -1,25 +1,36 @@
 package com.example.weartherapp;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
     final int REQUEST_CODE_PERMISSION = 0;
-    TextView text;
+    double longitude;
+    double latitude;
+
+    TextView nameCity;
+    TextView gpsCoords;
     Button backBtn;
     Button gpsTestBtn;
+
+    GPSController gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Задействуем первоначальную реализацию родителя
@@ -47,9 +58,11 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
     private void setTextViews()
     {
-        text = findViewById(R.id.editText2);
-        text.setText(new UserPrefs(this).GetDefaultCity());
-        text.addTextChangedListener(new TextWatcher()
+        gpsCoords = findViewById(R.id.gpsCoords);
+        gpsCoords.setVisibility(View.INVISIBLE);
+        nameCity = findViewById(R.id.editText2);
+        nameCity.setText(new UserPrefs(this).GetDefaultCity());
+        nameCity.addTextChangedListener(new TextWatcher()
         {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,7 +76,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-                updateCity(text.getText().toString());
+                updateCity(nameCity.getText().toString());
             }
         });
     }
@@ -81,17 +94,28 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             case R.id.gpsButton: {
 
                 int permissionStatusGps = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-                int permissionsStatusInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-                boolean check = permissionsStatusInternet ==  PackageManager.PERMISSION_GRANTED;
-                Log.d("LocConnection","Check = "+check);
-                if ((permissionStatusGps != PackageManager.PERMISSION_GRANTED) || (permissionsStatusInternet !=  PackageManager.PERMISSION_GRANTED)) {
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE},
+                if ((permissionStatusGps != PackageManager.PERMISSION_GRANTED)) {
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
                             REQUEST_CODE_PERMISSION);
                     return;
                 }
-                Intent item = new Intent(this,gpsClass.class);
-                startActivity(item);
 
+                gps = new GPSController(this);
+
+                if (gps.canGetLocation())
+                {
+                    latitude = gps.latitude;
+                    longitude = gps.longitude;
+                    gpsCoords.setVisibility(View.VISIBLE);
+                    String latString = String.format("%.2f",latitude);
+                    String longString = String.format("%.2f",longitude);
+                    gpsCoords.setText(latString+" "+longString);
+                    GetGeoCoderData(this);
+                }
+                else
+                {
+                    gps.showSettingsAlert();
+                }
                 break;
             }
         }
@@ -101,4 +125,35 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     {
         new UserPrefs(this).SetCity(inputCity);
     }
+
+    //Переводим данные с координат в название ближайшего населенного пункта через GeoCoder Google
+    private void GetGeoCoderData(Context context) {
+        Geocoder gcd = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(latitude,longitude,2);
+        } catch (IOException e) {
+            e.printStackTrace();
+            MakeToastMessage("Something went wrong.");
+            return;
+        }
+
+        if (addresses.size() > 0) {
+            nameCity.setText(addresses.get(0).getLocality());
+            //Обновляем город в Prefs, для его загрузки в другом активити
+            updateCity(nameCity.getText().toString());
+        }
+        else
+        {
+            MakeToastMessage("Information is not allowed..");
+        }
+    }
+
+    private void MakeToastMessage(String message)
+    {
+        Toast toast=Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT);
+        toast.setMargin(50,50);
+        toast.show();
+    }
+
 }

@@ -4,35 +4,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button btnOpenSettings;
+    Button btnShowWeather;
+    ImageView logo;
+    View mainScreen;
+    TextView versionApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button btnOpenSettings = findViewById(R.id.buttonSettings);
-        Button btnShowWeather = findViewById(R.id.buttonShowWeather);
-        View mainScreen = findViewById(R.id.viewMain);
-
-        btnShowWeather.setOnClickListener(this);
-        btnOpenSettings.setOnClickListener(this);
-        mainScreen.setOnTouchListener(new OnSwipeListener(MainActivity.this)
-        {
-            @Override
-            public void onSwipeLeft() {
-                Intent i =  new Intent(MainActivity.this, Settings.class);
-                startActivity(i);
-            }
-
-            @Override
-            public void onSwipeRight() {
-                Intent i = new Intent(MainActivity.this, Weather.class);
-                startActivity(i);
-            }
-        });
-
+        setViewComponents();
+        setTouchListener();
     }
 
     //Один метод для всех кнопок. Внутри метода идет проверка по ID кнопки. Вызываем необходимые активити.
@@ -54,5 +42,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         startActivity(intent);
+    }
+
+    private void setViewComponents()
+    {
+        btnOpenSettings = findViewById(R.id.buttonSettings);
+        btnShowWeather = findViewById(R.id.buttonShowWeather);
+        mainScreen = findViewById(R.id.viewMain);
+        versionApp = findViewById(R.id.versionApp);
+        versionApp.setText("Version "+BuildConfig.VERSION_NAME);
+        btnShowWeather.setOnClickListener(this);
+        btnOpenSettings.setOnClickListener(this);
+        logo = findViewById(R.id.logoApp);
+
+    }
+    
+    private void setTouchListener()
+    {
+        mainScreen.setOnTouchListener(new OnSwipeListener(MainActivity.this)
+        {
+            @Override
+            public void onSwipeLeft() {
+                Intent i =  new Intent(MainActivity.this, Settings.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                Intent i = new Intent(MainActivity.this, Weather.class);
+                startActivity(i);
+            }
+        });
     }
 }
