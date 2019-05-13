@@ -1,6 +1,5 @@
 package com.example.weartherapp;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class WeatherFragment  extends Fragment  {
-    Typeface weatherFont;
+
     TextView cityField;
     TextView temperatureField;
     TextView lastUpdated;
@@ -59,7 +58,6 @@ public class WeatherFragment  extends Fragment  {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weather.ttf");
         updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
     }
 

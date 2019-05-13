@@ -5,11 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
-
-import android.location.Address;
-import android.location.Geocoder;
 import android.util.Log;
 
 import android.content.Context;
@@ -26,12 +21,6 @@ public class DownloadHandler {
                     context.getString(R.string.open_weather_maps_app_id));
 
             BufferedReader reader = new BufferedReader(( new InputStreamReader(connection.getInputStream())));
-            Geocoder gcd = new Geocoder(context, Locale.getDefault());
-            List<Address> addresses = gcd.getFromLocation(52, 82, 1);
-
-            if (addresses.size() > 0)
-                Log.d("LocConnection",(addresses.get(0).getLocality())+" N = "+addresses.size());
-
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
             while((tmp = reader.readLine())!=null)
