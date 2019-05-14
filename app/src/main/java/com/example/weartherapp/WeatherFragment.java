@@ -1,5 +1,6 @@
 package com.example.weartherapp;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class WeatherFragment  extends Fragment  {
     ImageView iconWeather;
     ListView swipeWeather;
     Handler handler;
+    float currentTemperature;
 
     public WeatherFragment()
     {
@@ -92,6 +94,7 @@ public class WeatherFragment  extends Fragment  {
             temperatureField.setText(
                     String.format("%.2f", main.getDouble("temp"))+ " ℃");
 
+            currentTemperature = Float.valueOf((float) main.getDouble("temp"));
             DateFormat df = DateFormat.getDateTimeInstance();
             String updatedOn = df.format(new Date(json.getLong("dt")*1000));
 
@@ -105,10 +108,11 @@ public class WeatherFragment  extends Fragment  {
                     "Wind Speed = "+json.getJSONObject("wind").getString("speed")+"m/s"
             );
 
-            setAnimations();
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);
+
+            setAnimations();
         }catch(Exception e){
             Log.e("SimpleWeather", "One or more fields not found in the JSON data");
             iconWeather.setImageResource(R.drawable.sad);
@@ -166,6 +170,7 @@ public class WeatherFragment  extends Fragment  {
         setAnimView(description,1500,R.anim.fadeonce);
         setAnimView(windText,2000,R.anim.fadeonce);
         setAnimView(lastUpdated,2500,R.anim.fadeonce);
+        setAnimValue(2500,0);
     }
 
     private void setAnimView(View v, long delay,int id)
@@ -173,6 +178,19 @@ public class WeatherFragment  extends Fragment  {
         Animation itemAnim = AnimationUtils.loadAnimation(v.getContext(),id);
         itemAnim.setStartOffset(delay);
         v.setAnimation(itemAnim);
+    }
+
+    private void setAnimValue(long duration,long from)
+    {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(from,currentTemperature);
+        valueAnimator.setDuration(duration);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                temperatureField.setText(String.format("%.2f",valueAnimator.getAnimatedValue())+" ℃");
+            }
+        });
+        valueAnimator.start();
     }
 
 }
