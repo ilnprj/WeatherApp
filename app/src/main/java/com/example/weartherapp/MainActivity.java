@@ -3,6 +3,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnShowWeather.setOnClickListener(this);
         btnOpenSettings.setOnClickListener(this);
         logo = findViewById(R.id.logoApp);
-
     }
     
     private void setTouchListener()
@@ -73,5 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        logo.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
+        btnOpenSettings.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
+        btnShowWeather.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
     }
 }

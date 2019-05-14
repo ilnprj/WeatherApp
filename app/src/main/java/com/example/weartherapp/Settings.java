@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     double longitude;
     double latitude;
 
+    TextView headerPage;
+    TextView changeCityText;
     TextView nameCity;
     TextView gpsCoords;
     Button backBtn;
@@ -58,9 +61,14 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
     private void setTextViews()
     {
+        headerPage = findViewById(R.id.headerSettings);
+        changeCityText = findViewById(R.id.selectCityText);
+        changeCityText.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
+        headerPage.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
         gpsCoords = findViewById(R.id.gpsCoords);
         gpsCoords.setVisibility(View.INVISIBLE);
         nameCity = findViewById(R.id.editText2);
+        nameCity.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
         nameCity.setText(new UserPrefs(this).GetDefaultCity());
         nameCity.addTextChangedListener(new TextWatcher()
         {
