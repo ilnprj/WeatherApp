@@ -32,6 +32,7 @@ public class WeatherFragment  extends Fragment  {
     ListView swipeWeather;
     Handler handler;
     float currentTemperature;
+    String lang;
 
     public WeatherFragment()
     {
@@ -59,10 +60,10 @@ public class WeatherFragment  extends Fragment  {
     }
 
     private void updateWeatherData(final String city){
-
+        lang = new UserPrefs(getActivity()).GetLang();
         new Thread(){
             public void run(){
-                final JSONObject json = DownloadHandler.getJSON(getActivity(), city);
+                final JSONObject json = DownloadHandler.getJSON(getActivity(), city,lang);
                 if(json == null){
                     handler.post(new Runnable(){
                         public void run(){
@@ -85,7 +86,7 @@ public class WeatherFragment  extends Fragment  {
 
     private void renderWeather(JSONObject json){
         try {
-            cityField.setText(json.getString("name").toUpperCase(Locale.US) +
+            cityField.setText(json.getString("name").toUpperCase(Locale.getDefault()) +
                     ", " +
                     json.getJSONObject("sys").getString("country"));
 
@@ -98,14 +99,14 @@ public class WeatherFragment  extends Fragment  {
             DateFormat df = DateFormat.getDateTimeInstance();
             String updatedOn = df.format(new Date(json.getLong("dt")*1000));
 
-            lastUpdated.setText("Last update: " + updatedOn);
+            lastUpdated.setText(getString(R.string.LastInfoServer)+": " + updatedOn);
 
             description.setText(
                     details.getString("description").toUpperCase()
             );
 
             windText.setText(
-                    "Wind Speed = "+json.getJSONObject("wind").getString("speed")+"m/s"
+                   getString(R.string.Wind)+": " +json.getJSONObject("wind").getString("speed")+"m/s"
             );
 
             setWeatherIcon(details.getInt("id"),
@@ -155,7 +156,7 @@ public class WeatherFragment  extends Fragment  {
         cityField = rootView.findViewById(R.id.cityText);
         temperatureField = rootView.findViewById(R.id.tempText);
         lastUpdated = rootView.findViewById(R.id.infoText);
-        description  = rootView.findViewById(R.id.description );
+        description  = rootView.findViewById(R.id.Description );
         windText = rootView.findViewById(R.id.windText);
         iconWeather = rootView.findViewById(R.id.iconWeather);
         swipeWeather = rootView.findViewById(R.id.swipeView);
