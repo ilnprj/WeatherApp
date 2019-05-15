@@ -22,13 +22,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView logo;
     View mainScreen;
     TextView versionApp;
-    private String lang;
+    String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lang = new UserPrefs(this).GetLang();
-        SetLocale(lang);
+        SetLocale();
         setContentView(R.layout.activity_main);
         setViewComponents();
         setTouchListener();
@@ -91,11 +90,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         logo.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
         btnOpenSettings.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
         btnShowWeather.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fadeonce));
+        SetLocale();
     }
 
-    private void SetLocale(String inputLang)
+    private void SetLocale()
     {
-        Locale locale = new Locale(inputLang);
+        lang = new UserPrefs(this).GetLang();
+        Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
 

@@ -190,7 +190,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
     private void SetLocale(Locale locale,String lang)
     {
-        //UserPrefs.Lang = lang;
         new UserPrefs(this).SetLang(lang);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
