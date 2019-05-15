@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="change_city">Выберите город</string>
+    <string name="open_weather_maps_app_id">5fd6c6ea90499acb56afe9ea7794b451</string>
+    <string name="place_not_found">Извините, дата не найдена.</string>
+    <string name="settings">Настройки</string>
+    <string name="Back">Назад</string>
+    <string name="Sounds">Звуки</string>
+    <string name="ChangeCity">Выберите ваш город</string>
+    <string name="Temperature">Температура</string>
+    <string name="City">Город</string>
+    <string name="Description">Расширенная информация</string>
+    <string name="ShowWeather">Показать погоду</string>
+    <string name="LastInfoServer">Время обновления с сервера</string>
+    <string name="LastTimeUser">Время обновления пользователем</string>
+    <string name="tryConnect">Обновление погоды..</string>
+    <string name="gpsText">Определить местоположение</string>
+    <string name="Wind">Скорость ветра</string>
+    <string name="version">Версия</string>
+    <string name="RestartApp">Пожалуйста, перезапустите приложение</string>
+</resources>

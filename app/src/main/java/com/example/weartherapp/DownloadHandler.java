@@ -11,11 +11,12 @@ import android.content.Context;
 
 public class DownloadHandler {
 
-    private static final String OpenWeatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&lang=ru";//"http://api.openweathermap.org/data/2.5/weather?lat=-16.92&lon=145.77&units=metric&lang=ru"; //q=%s&units=metric";
-    public static JSONObject getJSON(Context context, String city){
+    private static String OpenWeatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&lang=";
+    public static JSONObject getJSON(Context context, String city, String lang){
+
+        String FullUrl = OpenWeatherAPI+lang;
         try{
-            URL url = new URL(String.format(OpenWeatherAPI,city));
-            //URL url = new URL(OpenWeatherAPI);
+            URL url = new URL(String.format(FullUrl,city));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.addRequestProperty("x-api-key",
                     context.getString(R.string.open_weather_maps_app_id));

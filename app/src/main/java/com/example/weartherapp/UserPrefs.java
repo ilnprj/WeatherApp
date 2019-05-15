@@ -20,4 +20,11 @@ public class UserPrefs {
     {
         userData.edit().putString("city",city).commit();
     }
+
+    void SetLang(String lang) { userData.edit().putString("lang",lang).commit(); }
+
+    public String GetLang()
+    {
+        return userData.getString("lang", "default");
+    }
 }

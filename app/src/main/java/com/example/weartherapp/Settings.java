@@ -1,10 +1,15 @@
 package com.example.weartherapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +28,7 @@ import java.util.Locale;
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
     final int REQUEST_CODE_PERMISSION = 0;
+    private SharedPreferences preferences;
     double longitude;
     double latitude;
 
@@ -32,6 +38,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     TextView gpsCoords;
     Button backBtn;
     Button gpsTestBtn;
+    Button enLocaleBtn;
+    Button ruLocaleBtn;
 
     GPSController gps;
     @Override
@@ -43,6 +51,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         //Инициализация содержимого в интерфейсе
         setButtons();
         setTextViews();
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -57,6 +66,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         backBtn.setOnClickListener(this);
         gpsTestBtn = findViewById(R.id.gpsButton);
         gpsTestBtn.setOnClickListener(this);
+        ruLocaleBtn = findViewById(R.id.ruLocale);
+        enLocaleBtn = findViewById(R.id.enLocale);
     }
 
     private void setTextViews()
@@ -137,7 +148,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     //Переводим данные с координат в название ближайшего населенного пункта через GeoCoder Google
     private void GetGeoCoderData(Context context) {
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
-        List<Address> addresses = null;
+        List<Address> addresses;
+
         try {
             addresses = gcd.getFromLocation(latitude,longitude,2);
         } catch (IOException e) {
@@ -164,4 +176,48 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         toast.show();
     }
 
+    public void OnClickLocaleRu(View v)
+    {
+        Locale locale = new Locale("ru");
+        SetLocale(locale,"ru");
+    }
+
+    public void OnClickLocaleEn(View v)
+    {
+        Locale locale = new Locale("en");
+        SetLocale(locale,"en");
+    }
+
+    private void SetLocale(Locale locale,String lang)
+    {
+        //UserPrefs.Lang = lang;
+        new UserPrefs(this).SetLang(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale);
+            getBaseContext().getResources()
+                    .updateConfiguration(configuration,
+                            getBaseContext()
+                                    .getResources()
+                                    .getDisplayMetrics());
+            setTitle(R.string.app_name);
+            //BUG: Recreate обновляет содержимое только со второго нажатия.
+            recreate();
+            MakeToastMessage(getString(R.string.RestartApp));
+        }
+        else
+        {
+            MakeToastMessage("Your API system is not allowed change locale in app..");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (gps!=null)
+        {
+            gps.stopUsingGPS();
+        }
+    }
 }
