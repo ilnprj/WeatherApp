@@ -18,4 +18,6 @@
     <string name="version">Version</string>
     <string name="Wind">Wind</string>
     <string name="RestartApp">Please, restart application</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="addwidget">Add widget</string>
 </resources>
