@@ -20,4 +20,5 @@
     <string name="RestartApp">Пожалуйста, перезапустите приложение</string>
     <string name="appwidget_text">WeatherWidget</string>
     <string name="addwidget">Add widget</string>
+    <string name="tempExample">+15</string>
 </resources>

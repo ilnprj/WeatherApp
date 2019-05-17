@@ -1,8 +1,10 @@
 package com.example.weartherapp;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -13,14 +15,13 @@ public class NewAppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        // Instruct the widget manager to update the widget
+        //TODO: Позже реализовать обновление элементов здесь
+        //views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        // Обновляем состав виджета (обновление view компонентов)
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -35,6 +36,7 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
+
     }
 
     @Override

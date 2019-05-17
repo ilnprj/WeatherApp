@@ -17,8 +17,8 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
         android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="+15"
+        android:contentDescription="@string/tempExample"
+        android:text="@string/tempExample"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="35sp"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/typeWeatherWidget"
-        android:layout_width="269dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -48,6 +48,46 @@
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="316dp"
         android:text="@string/Wind"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/cityWeatherWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="153dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="323dp"
+        android:text="@string/City"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
+
+    <Button
+    android:id="@+id/buttonUpdateWeather"
+    android:layout_width="199dp"
+    android:layout_height="717dp"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginTop="0dp"
+    android:layout_marginBottom="14dp"
+    android:background="@android:color/transparent"
+    />
+
+    <Button
+        android:id="@+id/buttonOpenSettings"
+        android:layout_width="190dp"
+        android:layout_height="730dp"
+        android:layout_alignStart="@+id/buttonUpdateWeather"
+        android:layout_alignRight="@id/appwidget_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/transparent"
+        android:foregroundGravity="right" />
 
 </RelativeLayout>
