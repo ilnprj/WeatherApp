@@ -64,30 +64,4 @@
         android:text="@string/City"
         android:textAlignment="center"
         android:textColor="#FFFFFF" />
-
-    <Button
-    android:id="@+id/buttonUpdateWeather"
-    android:layout_width="199dp"
-    android:layout_height="717dp"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentBottom="true"
-    android:layout_marginTop="0dp"
-    android:layout_marginBottom="14dp"
-    android:background="@android:color/transparent"
-    />
-
-    <Button
-        android:id="@+id/buttonOpenSettings"
-        android:layout_width="190dp"
-        android:layout_height="730dp"
-        android:layout_alignStart="@+id/buttonUpdateWeather"
-        android:layout_alignRight="@id/appwidget_text"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="0dp"
-        android:background="@android:color/transparent"
-        android:foregroundGravity="right" />
-
 </RelativeLayout>
