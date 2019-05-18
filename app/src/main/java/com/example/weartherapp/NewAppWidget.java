@@ -32,13 +32,7 @@ public class NewAppWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-            Intent configIntent = new Intent(context, Settings.class);
-
-            PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
-
-            remoteViews.setOnClickPendingIntent(R.id.widgetViewLogo, configPendingIntent);
-            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+            SetSettingsClick(context,appWidgetManager,appWidgetId);
         }
     }
 
@@ -51,6 +45,16 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    private void SetSettingsClick(Context context,AppWidgetManager appWidgetManager, int appWidgetIds)
+    {
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        Intent configIntent = new Intent(context, Settings.class);
+
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.widgetViewLogo, configPendingIntent);
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
     }
 }
 
