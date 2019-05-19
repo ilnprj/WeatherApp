@@ -32,7 +32,7 @@ public class DownloadHandler {
             reader.close();
             JSONObject data = new JSONObject(json.toString());
 
-            Log.d("LocConnection",data.get("cod").toString());
+            Log.d("LocConnection  = ",data.get("cod").toString());
             if (data.getInt("cod")!=200)
             {
                 return null;
@@ -44,7 +44,7 @@ public class DownloadHandler {
         {
             //Нужна информация о том что произошло
             e.getMessage();
-            Log.d("LocConnection",e.getMessage());
+            Log.d("LocConnection Exception",e.getMessage());
             return null;
         }
     }

@@ -3,10 +3,13 @@ package com.example.weartherapp;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Implementation of App Widget functionality.
@@ -29,14 +32,12 @@ public class NewAppWidget extends AppWidgetProvider {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
             updateAppWidget(context, appWidgetManager, appWidgetId);
             SetSettingsClick(remoteViews, context, appWidgetManager, appWidgetId);
-            CheckWeather(remoteViews);
         }
     }
 
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
-
     }
 
     @Override
@@ -52,8 +53,31 @@ public class NewAppWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
     }
 
-    private void CheckWeather(RemoteViews remoteViews)
-    {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(policy);
+        super.onReceive(context, intent);
+
+        AppWidgetManager appWidgetManager= AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        ComponentName watchWidget = new ComponentName(context, NewAppWidget.class);
+
+        Toast.makeText(context, "Requested", Toast.LENGTH_SHORT).show();
+
+        // Check the internet connection availability
+        if(InternetConnected.isInternetConnected()){
+            Toast.makeText(context, "Fetching Data", Toast.LENGTH_SHORT).show();
+            // Update the widget weather data
+            // Execute the AsyncTask
+            new WidgetLoadData(appWidgetManager,watchWidget,remoteViews,context);
+
+        }else {
+            Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
+        }
+        // Apply the changes
+        appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
     }
 }
