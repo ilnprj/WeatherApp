@@ -18,10 +18,6 @@ public class NewAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-
-        //TODO: Позже реализовать обновление элементов здесь
-        //views.setTextViewText(R.id.appwidget_text, widgetText);
-
         // Обновляем состав виджета (обновление view компонентов)
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -30,9 +26,10 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
             updateAppWidget(context, appWidgetManager, appWidgetId);
-
-            SetSettingsClick(context,appWidgetManager,appWidgetId);
+            SetSettingsClick(remoteViews, context, appWidgetManager, appWidgetId);
+            CheckWeather(remoteViews);
         }
     }
 
@@ -47,14 +44,17 @@ public class NewAppWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    private void SetSettingsClick(Context context,AppWidgetManager appWidgetManager, int appWidgetIds)
-    {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+    private void SetSettingsClick(RemoteViews remoteViews, Context context, AppWidgetManager appWidgetManager, int appWidgetIds) {
         Intent configIntent = new Intent(context, Settings.class);
 
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.widgetViewLogo, configPendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+    }
+
+    private void CheckWeather(RemoteViews remoteViews)
+    {
+
     }
 }
 
