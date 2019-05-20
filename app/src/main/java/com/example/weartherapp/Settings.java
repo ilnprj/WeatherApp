@@ -2,7 +2,10 @@ package com.example.weartherapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -19,6 +22,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -143,6 +147,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private void updateCity(String inputCity)
     {
         new UserPrefs(this).SetCity(inputCity);
+        //Обновляем информацию в самом виджете
+        Intent intent = new Intent(this, NewAppWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), NewAppWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
     }
 
     //Переводим данные с координат в название ближайшего населенного пункта через GeoCoder Google

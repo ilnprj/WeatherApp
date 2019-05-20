@@ -7,7 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
-import android.widget.ImageView;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -16,22 +16,13 @@ import android.widget.Toast;
  */
 public class NewAppWidget extends AppWidgetProvider {
 
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        // Обновляем состав виджета (обновление view компонентов)
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-            updateAppWidget(context, appWidgetManager, appWidgetId);
             SetSettingsClick(remoteViews, context, appWidgetManager, appWidgetId);
+            Log.d("LocConnection","Update");
         }
     }
 
