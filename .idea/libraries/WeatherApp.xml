@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="WeatherApp">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r" />
+      <root url="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/debug" />
+      <root url="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug" />
+      <root url="file://$PROJECT_DIR$/app/src/androidTest/java" />
+      <root url="file://$PROJECT_DIR$/app/src/main/java" />
+      <root url="file://$PROJECT_DIR$/app/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

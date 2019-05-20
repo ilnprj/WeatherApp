@@ -47,7 +47,7 @@ public class WeatherFragment  extends Fragment  {
                                         {
                                             public void onSwipeBottom() {
                                                 Toast.makeText(getContext(), R.string.tryConnect, Toast.LENGTH_SHORT).show();
-                                                updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
+                                                updateWeatherData();
                                             }
                                         }
         );
@@ -56,10 +56,11 @@ public class WeatherFragment  extends Fragment  {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        updateWeatherData( new UserPrefs(getActivity()).GetDefaultCity());
+        updateWeatherData();
     }
 
-    private void updateWeatherData(final String city){
+    private void updateWeatherData(){
+        final String city = new UserPrefs(getActivity()).GetDefaultCity();
         lang = new UserPrefs(getActivity()).GetLang();
         new Thread(){
             public void run(){
