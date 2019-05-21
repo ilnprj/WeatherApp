@@ -42,16 +42,12 @@
         android:id="@+id/selectCityText"
         android:layout_width="206dp"
         android:layout_height="84dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
         android:layout_marginTop="116dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+
         android:gravity="center"
         android:text="@string/ChangeCity"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
