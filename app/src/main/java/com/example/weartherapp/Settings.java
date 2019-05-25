@@ -100,7 +100,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void afterTextChanged(Editable s) {
                 updateCity(nameCity.getText().toString());
-                UpdateWidget();
             }
         });
     }
@@ -235,5 +234,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         {
             gps.stopUsingGPS();
         }
+        UpdateWidget();
     }
 }

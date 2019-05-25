@@ -57,8 +57,6 @@ public class WidgetLoadData {
         try {
             //Берем из json данные о температуре
             JSONObject main = json.getJSONObject("main");
-            remoteViews.setTextViewText(R.id.appwidget_text,String.format("%.2f", main.getDouble("temp"))+ " ℃" );
-
             //Данные о типе погоды
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             remoteViews.setTextViewText(R.id.typeWeatherWidget,   details.getString("description").toUpperCase());
@@ -71,13 +69,30 @@ public class WidgetLoadData {
             long sunrise = json.getJSONObject("sys").getLong("sunrise") * 1000;
             long sunset = json.getJSONObject("sys").getLong("sunset") * 1000;
             remoteViews.setImageViewResource(R.id.widgetViewLogo,GetCurrentIcon(idWeather,sunrise,sunset));
-
+            remoteViews.setTextViewText(R.id.appwidget_text,GetTemperature(main.getDouble("temp")) );
             //Обновляем данные в виджете.
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
         }catch(Exception e){
             Log.e("LocConnection", "One or more fields not found in the JSON data");
         }
+    }
+
+    private String GetTemperature(double input)
+    {
+        String res = "";
+
+        if (input>0)
+        {
+            res+="+";
+        }
+
+        if (input<0)
+        {
+            res+="-";
+        }
+
+        return String.format(res+"%.2f",input);
     }
 
     private int GetCurrentIcon(int actualId,long sunrise,long sunset)
