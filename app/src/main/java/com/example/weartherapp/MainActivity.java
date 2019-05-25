@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  {
 
     Button btnOpenSettings;
     Button btnShowWeather;
@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainScreen = findViewById(R.id.viewMain);
         versionApp = findViewById(R.id.versionApp);
         versionApp.setText("Version "+BuildConfig.VERSION_NAME);
-        btnShowWeather.setOnClickListener(this);
-        btnOpenSettings.setOnClickListener(this);
         logo = findViewById(R.id.logoApp);
     }
     

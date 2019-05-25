@@ -9,17 +9,25 @@
     tools:context=".Settings">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="365dp"
+        android:layout_height="622dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046">
 
         <TextView
             android:id="@+id/headerSettings"
             android:layout_width="285dp"
             android:layout_height="53dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/settings"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -28,41 +36,35 @@
             android:id="@+id/selectCityText"
             android:layout_width="206dp"
             android:layout_height="84dp"
-            android:layout_marginTop="116dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/ChangeCity"
             android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="48dp"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Name" />
 
         <TextView
             android:id="@+id/gpsCoords"
             android:layout_width="214dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="@string/gpsText" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Name" />
 
         <Button
             android:id="@+id/gpsButton"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="216dp"
-            android:layout_height="93dp"
+            android:layout_height="63dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="36dp"
             android:text="@string/gpsText"
             android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
@@ -74,6 +76,7 @@
             android:layout_gravity="center"
             android:text="@string/Back"
             android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
     </LinearLayout>
 
     <Button

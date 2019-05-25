@@ -134,6 +134,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                     String longString = String.format("%.2f",longitude);
                     gpsCoords.setText(latString+" "+longString);
                     GetGeoCoderData(this);
+
                 }
                 else
                 {
@@ -147,6 +148,11 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private void updateCity(String inputCity)
     {
         new UserPrefs(this).SetCity(inputCity);
+
+    }
+
+    private void UpdateWidget()
+    {
         //Обновляем информацию в самом виджете
         Intent intent = new Intent(this, NewAppWidget.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -154,7 +160,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
         sendBroadcast(intent);
     }
-
     //Переводим данные с координат в название ближайшего населенного пункта через GeoCoder Google
     private void GetGeoCoderData(Context context) {
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
@@ -172,6 +177,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             nameCity.setText(addresses.get(0).getLocality());
             //Обновляем город в Prefs, для его загрузки в другом активити
             updateCity(nameCity.getText().toString());
+            UpdateWidget();
         }
         else
         {
@@ -228,5 +234,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         {
             gps.stopUsingGPS();
         }
+        UpdateWidget();
     }
 }
