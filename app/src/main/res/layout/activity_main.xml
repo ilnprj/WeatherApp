@@ -28,39 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.478" />
-
-    <LinearLayout
-        android:layout_width="420dp"
-        android:layout_height="219dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0">
-
-        <Button
-            android:id="@+id/buttonSettings"
-            android:layout_width="164dp"
-            android:layout_height="77dp"
-            android:background="@drawable/button"
-            android:layout_marginLeft="30dp"
-            android:text="@string/settings"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
-
-        <Button
-            android:id="@+id/buttonShowWeather"
-            android:layout_width="149dp"
-            android:layout_height="78dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/button"
-            android:text="@string/ShowWeather"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
-    </LinearLayout>
-
     <View
         android:id="@+id/viewMain"
         android:layout_width="wrap_content"
@@ -101,5 +68,44 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         />
+    <LinearLayout
+        android:layout_width="420dp"
+        android:layout_height="219dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="164dp"
+            android:layout_height="77dp"
+            android:background="@drawable/button"
+            android:layout_marginLeft="30dp"
+            android:onClick="onClick"
+            android:text="@string/settings"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <Button
+            android:id="@+id/buttonShowWeather"
+            android:layout_width="149dp"
+            android:layout_height="78dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/button"
+            android:onClick="onClick"
+            android:text="@string/ShowWeather"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,7 @@ public class NewAppWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
             SetSettingsClick(remoteViews, context, appWidgetManager, appWidgetId);
+            setInfo(context);
             Log.d("LocConnection","Update");
         }
     }
@@ -50,7 +51,11 @@ public class NewAppWidget extends AppWidgetProvider {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
         super.onReceive(context, intent);
+        setInfo(context);
+    }
 
+    private void setInfo(Context context)
+    {
         AppWidgetManager appWidgetManager= AppWidgetManager.getInstance(context);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
         ComponentName watchWidget = new ComponentName(context, NewAppWidget.class);
@@ -69,7 +74,6 @@ public class NewAppWidget extends AppWidgetProvider {
         }
         // Apply the changes
         appWidgetManager.updateAppWidget(watchWidget, remoteViews);
-
     }
 }
 
