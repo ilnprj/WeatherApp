@@ -60,15 +60,11 @@ public class NewAppWidget extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
         ComponentName watchWidget = new ComponentName(context, NewAppWidget.class);
 
-        Toast.makeText(context, "Requested", Toast.LENGTH_SHORT).show();
-
         // Check the internet connection availability
         if(InternetConnected.isInternetConnected()){
-            Toast.makeText(context, "Fetching Data", Toast.LENGTH_SHORT).show();
             // Update the widget weather data
             // Execute the AsyncTask
             new WidgetLoadData(appWidgetManager,watchWidget,remoteViews,context);
-
         }else {
             Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
         }
