@@ -37,21 +37,26 @@ public class NewAppWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    private void SetSettingsClick(RemoteViews remoteViews, Context context, AppWidgetManager appWidgetManager, int appWidgetIds) {
-        Intent configIntent = new Intent(context, Settings.class);
-
-        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
-        remoteViews.setOnClickPendingIntent(R.id.widgetViewLogo, configPendingIntent);
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
         super.onReceive(context, intent);
         setInfo(context);
+    }
+
+    private void SetSettingsClick(RemoteViews remoteViews, Context context, AppWidgetManager appWidgetManager, int appWidgetIds) {
+        Intent configIntent = new Intent(context, Settings.class);
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.widgetViewLogo, configPendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.UpdateWidgetNow, getPendingSelfIntent(context, "android.appwidget.action.APPWIDGET_UPDATE"));
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+    }
+
+    private PendingIntent getPendingSelfIntent(Context context, String action) {
+        Intent intent = new Intent(context, getClass());
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     private void setInfo(Context context)
